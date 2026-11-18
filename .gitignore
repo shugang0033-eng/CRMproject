@@ -1,0 +1,23 @@
+node_modules
+dist
+dist-ssr
+*.local
+.DS_Store
+.vite
+.idea
+.vscode/*
+!.vscode/extensions.json
+logs/
+crm-8080.log
+crm-8080.err
+
+# Build output, logs and local configuration
+backend/target/
+*.log
+*.err
+.env
+.env.*
+!.env.example
+.workbuddy/
+database/backup/
+*.sql.gz

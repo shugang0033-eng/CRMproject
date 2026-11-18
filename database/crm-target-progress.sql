@@ -1,0 +1,19 @@
+USE crm;
+ALTER TABLE crm_targets
+  ADD COLUMN metric VARCHAR(16) NOT NULL DEFAULT 'signed' AFTER scope_id,
+  ADD COLUMN updated_by BIGINT UNSIGNED NULL,
+  ADD COLUMN updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  DROP PRIMARY KEY, ADD PRIMARY KEY(period,scope,scope_id,metric);
+
+CREATE TABLE IF NOT EXISTS crm_target_history (
+  id BIGINT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+  period CHAR(7) NOT NULL,
+  scope VARCHAR(16) NOT NULL,
+  scope_id BIGINT UNSIGNED NOT NULL,
+  metric VARCHAR(16) NOT NULL,
+  old_amount DECIMAL(14,2),
+  new_amount DECIMAL(14,2) NOT NULL,
+  changed_by BIGINT UNSIGNED NOT NULL,
+  changed_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  KEY idx_target(period,scope,scope_id,metric,changed_at)
+);
